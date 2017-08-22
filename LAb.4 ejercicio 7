@@ -1,0 +1,30 @@
+EJERCICIO 7
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+using namespace std; 
+int Fac(int x);
+
+void main()
+{	int n,r,c;
+	do
+	{cout<<"ingrese el valor de n ";
+	 cin>> n;
+	}while(n<0);
+	do
+	{cout<<"ingrese el valor de r ";
+	 cin>> r;
+	}while(n<0 && n<r);
+	c = Fac(n)/(Fac(r)*Fac(n-r));
+	cout<<"su combinatoria es " <<c;
+getch();
+}
+
+int Fac(int x)
+	{ int s=1;
+	  for(int i=1;i<=x;i++)
+		{  
+			s=s*i;
+	    }
+	  return s;
+}
