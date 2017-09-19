@@ -1,0 +1,167 @@
+#include "stdafx.h"
+
+#include <iostream>
+
+#include "conio.h"
+
+#define MAX 10
+
+
+
+using namespace std;
+
+
+
+struct matV{
+
+int subvec[MAX];
+
+};
+
+void cargar_mat_vec(matV mat[MAX][MAX],int fil, int col, int n);
+
+void ordenar_vec_ascendente(matV mat[MAX][MAX], int fil, int col, int n);
+
+void mostrar_mat_vec_ascendente(matV mat[MAX][MAX], int fil, int col, int n);
+
+
+
+void main()
+
+{
+
+int fil, col,n;
+
+matV mat[MAX][MAX];
+
+do{
+
+cout<<"ingrese las filas de la matriz principal"<<endl;
+
+cin>>fil;
+
+}while((fil<=0)||(fil>MAX));
+
+do{
+
+cout<<"ingrese las columnas de la matriz principal"<<endl;
+
+cin>>col;
+
+}while((col<=0)||(col>MAX));
+
+do{
+
+cout<<"ingrese el tamanho de los vectores"<<endl;
+
+cin>>n;
+
+}while((n<=0)||(n>MAX));
+
+cout<<"MATRIZ ORIGINAL"<<endl;
+
+cargar_mat_vec(mat,fil,col,n);
+
+ordenar_vec_ascendente(mat,fil,col,n);
+
+cout<<"MATRIZ NUEVA"<<endl;
+
+mostrar_mat_vec_ascendente(mat,fil,col,n);
+
+getch();
+
+}
+
+
+
+void cargar_mat_vec(matV mat[MAX][MAX],int fil, int col, int n)
+
+{
+
+int i,j,k;
+
+for(i=0;i<fil;i++)
+
+{ for(j=0;j<col;j++)
+
+{ for(k=0;k<n;k++)
+
+{
+
+cout<<"mat["<<i<<"]["<<j<<"].subvec["<<k<<"]=";
+
+cin>>mat[i][j].subvec[k];
+
+}
+
+}
+
+}
+
+}
+
+void ordenar_vec_ascendente(matV mat[MAX][MAX], int fil, int col, int n)
+
+{
+
+int i,j,k,l,aux;
+
+for(i=0;i<fil;i++)
+
+{ for(j=0;j<col;j++)
+
+{ for(k=0;k<n-1;k++)
+
+{
+
+for(l=k+1;k<n;k++)
+
+{
+
+if((mat[i][j].subvec[l])<(mat[i][j].subvec[k]))
+
+{
+
+aux=mat[i][j].subvec[k];
+
+mat[i][j].subvec[k]=mat[i][j].subvec[l];
+
+mat[i][j].subvec[l]=aux;
+
+}
+
+}
+
+}
+
+}
+
+}
+
+}
+
+void mostrar_mat_vec_ascendente(matV mat[MAX][MAX], int fil, int col, int n)
+
+{
+
+int i,j,k;
+
+for(i=0;i<fil;i++)
+
+{ for(j=0;j<col;j++)
+
+{ for(k=0;k<n;k++)
+
+{
+
+cout<<"mat["<<i<<"]["<<j<<"].subvec["<<k<<"]="<<mat[i][j].subvec[k]<<endl;
+
+
+
+}
+
+}
+
+}
+
+}
