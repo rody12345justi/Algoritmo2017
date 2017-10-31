@@ -1,0 +1,237 @@
+// promediomatrices.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+#define MAX 6
+using namespace std;
+
+struct tvec
+{
+int id;
+bool band;
+};
+
+tvec v[MAX];
+
+//prototipos
+
+void cargarvec(int n);
+int suma(int n);
+int fact(int m);
+void mostrarvec(int n);
+
+void cargar(int MAT[MAX][MAX], int m ,int n);
+void media_matriz_porfila(int MAT[MAX][MAX], int m ,int n);
+void media_matriz_columna(int MAT[MAX][MAX], int m ,int n);
+bool verificarprimo(int n);
+void numerocurioso(int n);
+void numeroabundante(int n);
+
+void main()
+{
+int m,n,MAT[MAX][MAX],opc,pri,op;
+do{
+cout<<"***** MENU ******"<<endl;
+cout<<"1.pregunta 1"<<endl;
+cout<<"2.pregunta 2"<<endl;
+cout<<"3.pregunta 3"<<endl;
+cout<<"0.salir"<<endl;
+cin>>opc;
+switch(opc){
+case 1:{
+cout<<"INGRESE NUMERO DE FILAS: ";
+cin>>n;
+cout<<"INGRESE LAS COLUMNAS: ";
+cin>>m;
+do
+{ cout<<"***** MENU ******"<<endl;
+cout<<"1.- Cargar Matriz"<<endl;
+cout<<"2.- Media Matriz Por Fila"<<endl;
+cout<<"3.- Media Matriz Por Colunma"<<endl;
+cout<<"0.- salir"<<endl;
+
+cout<<"Ingrese la opcion de preferencia: ";
+cin>> op;
+switch(op)
+{
+case 1:
+cargar(MAT, m, n);
+break;
+case 2:
+media_matriz_porfila(MAT, m, n);
+break;
+case 3:
+media_matriz_columna(MAT, m, n);
+break;
+case 0: cout<<"Salir";
+break;
+default: cout<<"Invalido";
+break;}
+} while(op!=0);
+case 2:
+do{
+cout<<"***** MENU ******"<<endl;
+cout<<"1.- Cargar vector"<<endl;
+cout<<"2.- Numero curioso"<<endl;
+cout<<"3.- Numero abundante"<<endl;
+
+cout<<"0.- Salir"<<endl;
+cout<<endl;
+cout<<"Ingrese la opcion de preferencia: ";
+cin>> opc;
+
+switch (opc)
+{
+
+case 1:
+do{
+cout<<"ingrese el numero de elementos"<<endl;
+cin>>n;
+}while(n<0 && n>MAX);
+cargarvec(n);
+break;
+case 2: numerocurioso(n);
+mostrarvec(n);
+break;
+case 3: numeroabundante(n);
+mostrarvec(n);
+break;
+
+case 0: cout<<"Salir";
+break;
+default: cout<<"Invalido";
+break;
+
+}
+
+break;
+
+getch();
+} while(opc!=0);
+}
+
+void cargar(int MAT[MAX][MAX], int m ,int n)
+{
+cout<<"Ingrese valores para la matriz:";
+for(int i=0; i<n; i++)
+for(int j=0;j<m; j++)
+{ cout<<"mat["<< i << "]" << "[" << j << "]";
+cin>>MAT[i][j];
+}
+
+}
+
+void media_matriz_porfila(int MAT[MAX][MAX], int m ,int n){
+int i,j,cont=0,s=0;
+float d;
+for(i=0;i<n;i++){
+for(j=0;j<m;j++){
+if(verificarprimo(MAT[i][j])==false){
+s = s + MAT[i][j];
+cont++;
+}
+
+}
+}
+d= s/cont;
+cout << "La media de la fila " << i << " es " << d;
+}
+bool verificarprimo(int n){
+bool k=false;
+int i;
+for(i=2;i<n;i++){
+if(n%i==0) k=true;
+}
+return k;
+}
+
+void media_matriz_columna(int MAT[MAX][MAX], int m ,int n){
+int i,j,s=0;
+float prom;
+for(i=0;i<n;i++)
+{
+int may=MAT[0][i];
+int men=MAT[0][i];
+for(j=0;j<m;j++)
+{
+s = s + MAT[i][j];
+if(MAT[i][j]>may)
+may=MAT[i][j];
+if(MAT[i][j]<men)
+men=MAT[i][j];
+
+}
+prom=(s-may-men)/(n-2);
+cout<<"el promedio por columna es "<<prom;
+}
+}
+
+int fact(int m)
+{
+int p=1,i;
+for(i=2;i<=m;i++)
+{
+p=p*i;
+}
+return p;
+}
+
+void cargarvec(int n)
+{int p,i;
+for(int i=0;i<n;i++)
+{
+cout<<"ingrese el id: ";
+cin>>v[i].id;
+v[i].band = false;
+}
+}
+
+void numerocurioso(int n){
+int p,i;
+for (i=0; i<n; i++){
+p=suma(v[i].id);
+if(v[i].id == p)
+v[i].band=true;
+else
+v[i].band=false;
+}
+}
+
+void numeroabundante(int n)
+{ int p;
+for (int i=0; i<n; i++)
+{p=suma(v[i].id);
+if(v[i].id < p)
+v[i].band=true;
+else
+v[i].band=false;
+}
+}
+
+int suma(int n)
+{
+int m,s=0;
+for(int i=1; i<n; i++)
+{if(n%i==0)
+s=s+i;
+}
+return s;
+}
+void mostrarvec(int n)
+{
+int i;
+for(i=0;i<n;i++)
+{
+cout<<"\n id: "<<v[i].id;
+if(v[i].band==false)
+{
+cout<<"\t No es numero abundante/curioso.";
+}
+else
+cout<<"\t Es numero abundante/curioso. ";
+}
+
+}
