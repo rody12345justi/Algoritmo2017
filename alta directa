@@ -1,0 +1,77 @@
+// SFSDS.cpp : Defines the entry point for the console application.
+//
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include <string>
+#include "stdlib.h"
+
+using namespace std;
+void ALTA_DIRECTA(void);
+
+
+struct designado{
+	int id_designado;
+	string nombre;
+	int año;
+	float precio;
+	char modelo_auto;
+	int garantia;
+	;
+
+};
+designado Registro; //variable de tipo struct
+FILE *alias;
+
+void main()
+{
+	
+			
+				ALTA_DIRECTA();
+				
+	getch();
+
+
+}
+void ALTA_DIRECTA(void) 
+{ 
+  int id_designado,dir_fisica;  // Variable local para el numero de producto 
+
+  cout << "\n\rALTAS DE REGISTROS DE PRODUCTOS"; 
+  alias=fopen("PRODUCTO.DIR","rb+"); // Intenta abrir el archivo 
+                             // en modo de lectura/escritura 
+  if(alias==NULL) {
+                    alias=fopen("PRODUCTO.DIR","wb"); // Crea el archivo en caso de no 
+                    cout << "\n\n\n\rNumero de producto: ";
+	                cin >>id_designado;
+                    dir_fisica=id_designado*sizeof(Registro); // Calculo de la dir. fisica 
+                     fseek(alias,dir_fisica,SEEK_SET); //Posicionar el apuntador del archivo
+                     fread(&Registro,sizeof(Registro),1,alias);  // Lee el "Registro", de tamano=sizeof(Registro) del archivo "alias"
+                   return;
+  } 
+  if(Registro.id_designado==id_designado) 
+  { 
+       cout << "\n\n\n\rRegistro duplicado !!!"; 
+       fclose(alias); 
+       getch(); 
+       return; 
+  } 
+  cout << "\n\rNombre: ";
+  cin>>Registro.nombre; 
+  cout << "\n\rANO  : "; 
+  cin >> Registro.año; 
+  cout << "\n\rPrecio     : "; 
+  cin >> Registro.precio; 
+  do 
+  { 
+    cout << "\n\rGarantia   : "; Registro.garantia=toupper(getche()); 
+  }while(Registro.garantia!='S' && Registro.garantia!='N'); 
+  Registro.id_designado=id_designado; 
+  fseek(alias,dir_fisica,SEEK_SET); //Posicionar el apuntador del archivo
+  fwrite(&Registro,sizeof(Registro),1,alias); // Grabar el Registro  
+  fclose(alias); // Cierra el archivo 
+  cout << "\n\n\n\rProducto registrado !!!"; 
+  cout << "\n\r<<< Oprima cualquier tecla para continuar >>>"; 
+  getch(); 
+}
